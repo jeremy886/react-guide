@@ -9,7 +9,7 @@ class App extends Component {
       {name: "Jacob", job: "builder"},
       {name: "Jobs", job: "CEO"}
     ]
-  };
+  }
 
   switchNameHandler = (new_name) => {
       this.setState(
@@ -21,7 +21,17 @@ class App extends Component {
           ]
         }
       );
-  };
+  }
+
+  nameChangeHandler = (event) => {
+    this.setState({
+      persons: [
+        {name: 'James', job: 'student'},
+        {name: event.target.value, job: 'farmer'},
+        {name: 'Jack', job: 'plumber'}
+      ]
+    })
+  }
 
   render() {
     return (
@@ -32,8 +42,13 @@ class App extends Component {
         <Person
           click={this.switchNameHandler.bind(this, 'Joy')}
           name={this.state.persons[0].name} job={this.state.persons[0].job} />
-        <Person name={this.state.persons[1].name} job={this.state.persons[1].job}>
+
+        <Person
+          name={this.state.persons[1].name}
+          job={this.state.persons[1].job}
+          changed={this.nameChangeHandler} >
           My hobby is racing.</Person>
+
         <Person name={this.state.persons[2].name} job={this.state.persons[2].job} />
       </div>
     );
