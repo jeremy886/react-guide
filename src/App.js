@@ -12,17 +12,12 @@ class App extends Component {
     show_persons: false
   };
 
-  switchNameHandler = (new_name) => {
-    this.setState(
-      {
-        persons: [
-          {name: new_name, job: "principal"},
-          {name: "Jenny", job: "builder"},
-          {name: "Joan", job: "CEO"}
-        ]
-      }
-    );
-  };
+  deletePersonHandler = (person_index) => {
+    // const persons = this.state.persons.slice(); // copy an array by value
+    const persons = [...this.state.persons];  // copy an array by value
+    persons.splice(person_index, 1);
+    this.setState({persons: persons});
+  }
 
   nameChangeHandler = (event) => {
     this.setState({
@@ -53,17 +48,12 @@ class App extends Component {
     if (this.state.show_persons) {
       persons = (
         <div>
-          <Person
-            click={this.switchNameHandler.bind(this, 'Joy')}
-            name={this.state.persons[0].name} job={this.state.persons[0].job}/>
-
-          <Person
-            name={this.state.persons[1].name}
-            job={this.state.persons[1].job}
-            changed={this.nameChangeHandler}>
-            My hobby is racing.</Person>
-
-          <Person name={this.state.persons[2].name} job={this.state.persons[2].job}/>
+          {this.state.persons.map((person, index) => {
+            return <Person
+              click={() => this.deletePersonHandler(index)}
+              name={person.name}
+              job={person.job}/>
+          })}
         </div>
       );
     }
