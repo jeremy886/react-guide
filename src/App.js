@@ -17,16 +17,19 @@ class App extends Component {
     const persons = [...this.state.persons];  // copy an array by value
     persons.splice(person_index, 1);
     this.setState({persons: persons});
-  }
+  };
 
-  nameChangeHandler = (event) => {
-    this.setState({
-      persons: [
-        {name: 'James', job: 'student'},
-        {name: event.target.value, job: 'farmer'},
-        {name: 'Jack', job: 'plumber'}
-      ]
-    })
+  nameChangeHandler = (event, id) => {
+    const person_index = this.state.persons.findIndex(p=>{
+      return p.id === id;
+    });
+
+    const person = { ...this.state.persons[person_index]};
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[person_index] = person;
+
+    this.setState({persons: persons});
   };
 
   togglePersonHandler = () => {
@@ -53,6 +56,7 @@ class App extends Component {
               key={person.id}
               click={() => this.deletePersonHandler(index)}
               name={person.name}
+              changed={(event)=>this.nameChangeHandler(event, person.id)}
               job={person.job}/>
           })}
         </div>
