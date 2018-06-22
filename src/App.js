@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
 
@@ -8,19 +8,20 @@ class App extends Component {
       {name: "John", job: "principal"},
       {name: "Jacob", job: "builder"},
       {name: "Jobs", job: "CEO"}
-    ]
+    ],
+    show_persons: false
   };
 
   switchNameHandler = (new_name) => {
-      this.setState(
-        {
-          persons: [
-            {name: new_name, job: "principal"},
-            {name: "Jenny", job: "builder"},
-            {name: "Joan", job: "CEO"}
-          ]
-        }
-      );
+    this.setState(
+      {
+        persons: [
+          {name: new_name, job: "principal"},
+          {name: "Jenny", job: "builder"},
+          {name: "Joan", job: "CEO"}
+        ]
+      }
+    );
   };
 
   nameChangeHandler = (event) => {
@@ -31,6 +32,11 @@ class App extends Component {
         {name: 'Jack', job: 'plumber'}
       ]
     })
+  };
+
+  togglePersonHandler = () => {
+    const show_status = this.state.show_persons;
+    this.setState({show_persons: !show_status})
   };
 
   render() {
@@ -44,22 +50,27 @@ class App extends Component {
 
     return (
       <div className="App">
+
         <h1>Welcome to React</h1>
         <p>This is a react app!</p>
         <button
           style={style}
-          onClick={()=>this.switchNameHandler('Josh')}>Switch Names</button>
-        <Person
-          click={this.switchNameHandler.bind(this, 'Joy')}
-          name={this.state.persons[0].name} job={this.state.persons[0].job} />
+          onClick={this.togglePersonHandler}>Show Names
+        </button>
+        {!this.state.show_persons ? null : <div>
+          <Person
+            click={this.switchNameHandler.bind(this, 'Joy')}
+            name={this.state.persons[0].name} job={this.state.persons[0].job}/>
 
-        <Person
-          name={this.state.persons[1].name}
-          job={this.state.persons[1].job}
-          changed={this.nameChangeHandler} >
-          My hobby is racing.</Person>
+          <Person
+            name={this.state.persons[1].name}
+            job={this.state.persons[1].job}
+            changed={this.nameChangeHandler}>
+            My hobby is racing.</Person>
 
-        <Person name={this.state.persons[2].name} job={this.state.persons[2].job} />
+          <Person name={this.state.persons[2].name} job={this.state.persons[2].job}/>
+        </div>
+}
       </div>
     );
   }
