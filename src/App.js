@@ -9,11 +9,20 @@ class App extends Component {
       {name: "Jacob", job: "builder"},
       {name: "Jobs", job: "CEO"}
     ]
-  }
+  };
 
   switchNameHandler = () => {
-    console.log("was clicked")
-  }
+      this.setState(
+        {
+          persons: [
+            {name: "Justin", job: "principal"},
+            {name: "Jenny", job: "builder"},
+            {name: "Joan", job: "CEO"}
+          ]
+        }
+      );
+  };
+
   render() {
     return (
       <div className="App">
@@ -23,7 +32,7 @@ class App extends Component {
         <Person name={this.state.persons[0].name} job={this.state.persons[0].job} />
         <Person name={this.state.persons[1].name} job={this.state.persons[1].job}>
           My hobby is racing.</Person>
-        <Person name={this.state.persons[0].name} job={this.state.persons[2].job} />
+        <Person name={this.state.persons[2].name} job={this.state.persons[2].job} />
       </div>
     );
   }
