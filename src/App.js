@@ -20,11 +20,11 @@ class App extends Component {
   };
 
   nameChangeHandler = (event, id) => {
-    const person_index = this.state.persons.findIndex(p=>{
+    const person_index = this.state.persons.findIndex(p => {
       return p.id === id;
     });
 
-    const person = { ...this.state.persons[person_index]};
+    const person = {...this.state.persons[person_index]};
     person.name = event.target.value;
     const persons = [...this.state.persons];
     persons[person_index] = person;
@@ -34,7 +34,7 @@ class App extends Component {
 
   togglePersonHandler = () => {
     const show_status = this.state.show_persons;
-    this.setState({show_persons: !show_status})
+    this.setState({show_persons: !show_status});
   };
 
   render() {
@@ -56,7 +56,7 @@ class App extends Component {
               key={person.id}
               click={() => this.deletePersonHandler(index)}
               name={person.name}
-              changed={(event)=>this.nameChangeHandler(event, person.id)}
+              changed={(event) => this.nameChangeHandler(event, person.id)}
               job={person.job}/>
           })}
         </div>
@@ -70,7 +70,7 @@ class App extends Component {
         <p>This is a react app!</p>
         <button
           style={style}
-          onClick={this.togglePersonHandler}>Show Names
+          onClick={() => this.togglePersonHandler()}>Show Names
         </button>
         {persons}
       </div>
